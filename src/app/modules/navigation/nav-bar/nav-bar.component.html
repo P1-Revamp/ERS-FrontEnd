@@ -1,0 +1,28 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <div class="dropdown" *ngIf="navBarService.showMenu">
+                <button class="btn btn-secondary dropdown-toggle"
+                        type="button" id="dropdownMenu1" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                  Menu
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  <a class="dropdown-item" href="home">Home</a>
+                  <a class="dropdown-item" href="#!">My Tickets</a>
+                  <a class="dropdown-item" href="create-ticket">Create Ticket</a>
+                  <a *ngIf="navBarService.showReviewTab" class="dropdown-item" href="#!">Review Tickets</a>
+                  <a class="dropdown-item" href="#!">Settings</a>
+                  <a class="dropdown-item" href="login" (click)="logout()">Log Out</a>
+                </div>
+              </div>
+        </li>  
+        <li class="nav-item">
+            <a class="navbar-brand nav-link text-white" href="home">Expense Reimbursement System</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  

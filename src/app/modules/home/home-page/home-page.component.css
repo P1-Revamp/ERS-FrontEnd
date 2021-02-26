@@ -1,0 +1,13 @@
+#list-item:hover {
+    background-color: white;
+}
+#list-header:hover {
+    background-color: #007BFF;
+}
+#settings:hover {
+    background-color: aquamarine;
+}
+
+div.list-group {
+    min-width: 300px;
+}
