@@ -48,8 +48,13 @@
             </div>
             <button type="submit" class="btn btn-primary form-group">Submit</button>
         </form>
-  
     </div>
 </div>
-<p class="d-flex justify-content-center text-success" >{{message}}</p>
-<p class="d-flex justify-content-center text-danger" >{{messageError}}</p>
+<div class="d-flex justify-content-center">
+        <div class="alert alert-success" role="alert" *ngIf="showSuccessMessage">
+        <strong>Success!</strong> Ticket Has Been Created
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="showErrorMessage">
+        <strong>Error</strong> Ticket Not Created
+    </div>
+</div>

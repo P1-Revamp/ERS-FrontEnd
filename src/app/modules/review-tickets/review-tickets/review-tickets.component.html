@@ -1,0 +1,140 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<h1 class="d-flex justify-content-center">Review Tickets</h1>
+
+<div class="modal fade" id="descriptionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ticket {{this.descriptionModalId}} Description</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+        </div>
+        <div class="modal-body">
+        {{this.descriptionModalDesc}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Review Ticket {{this.reviewModalId}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <form (ngSubmit)="reviewTicket($event, this.ticketUnderReview)" [formGroup]="reviewForm">
+        <div class="modal-body">
+              <div id="type-div">
+                
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="review" id="accept" value="2" checked>
+                      <label class="form-check-label" for="accept">
+                      Accept
+                      </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="review" id="deny" value="3" checked>
+                      <label class="form-check-label" for="deny">
+                      Deny
+                      </label>
+                  </div>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary form-group">Submit</button>
+        </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="jumbotron">
+
+  <div class="alert alert-success" role="alert" *ngIf="showSuccessMessage">
+    <strong>Success!</strong> Ticket Has Been Reviewed
+  </div>
+  <div class="alert alert-danger" role="alert" *ngIf="showErrorMessage">
+    <strong>Error</strong> Ticket Not Reviewed
+  </div>
+  
+
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary active">
+          <input type="radio" name="options" id="option1" autocomplete="off" checked="" (click)="setFilter(0)"> All
+        </label>
+        <label class="btn btn-secondary">
+          <input type="radio" name="options" id="option2" autocomplete="off" (click)="setFilter(1)"> Pending
+        </label>
+        <label class="btn btn-secondary">
+            <input type="radio" name="options" id="option2" autocomplete="off" (click)="setFilter(2)"> Approved
+        </label>
+        <label class="btn btn-secondary">
+            <input type="radio" name="options" id="option2" autocomplete="off" (click)="setFilter(3)"> Denied
+        </label>
+      </div>
+
+    <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>Ticket Id</th>
+        <th>Author Id</th>
+        <th>Amount</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Submitted</th>
+        <th>Resolved</th>
+        <th>Resolver Id</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let ticket of ticketList">
+      <tr *ngIf="ticket.status.statusId == this.filter || this.filter == 0">
+        <th scope="row">{{ticket.reimbId}}</th>
+        <td>{{ticket.author.userId}}</td>
+        <td>{{ticket.amount | currency}}</td>
+        <td>{{ticket.type.type}}</td>
+        <td>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#descriptionModal" (click)="setDescriptionModalText(ticket)">
+                View Description
+            </button>
+        </td>
+        <td>{{ticket.submitted | date : 'MMMM dd, YYYY - hh:mm:ss zzz'}}</td>
+        <td *ngIf="ticket.resolved != null">{{ticket.resolved | date : 'MMMM dd, YYYY - hh:mm:ss zzz'}}</td>
+        <td *ngIf="ticket.resolved == null">n/a</td>
+        <td *ngIf="ticket.resolver != null">{{ticket.resolver.userId}}</td>
+        <td *ngIf="ticket.resolver == null">n/a</td>
+        <td *ngIf="ticket.status.statusId == 1">
+            <p class="text-warning">
+            {{ticket.status.status | titlecase}}
+            </p>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reviewModal" (click)="setReviewModalText(ticket)">
+              Review
+            </button>
+        </td>
+        <td *ngIf="ticket.status.statusId == 2">
+            <p class="text-success">
+            {{ticket.status.status | titlecase}}
+            </p>
+        </td>
+        <td *ngIf="ticket.status.statusId == 3">
+            <p class="text-danger">
+                {{ticket.status.status | titlecase}}
+            </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

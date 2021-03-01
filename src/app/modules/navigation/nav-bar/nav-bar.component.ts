@@ -42,11 +42,9 @@ export class NavBarComponent implements OnInit {
 
   setIsLoggedIn(isLoggedIn: boolean) {
     this.isLoggedIn = isLoggedIn;
-    console.log(this.isLoggedIn);
   }
 
   getIsLoggedIn(): boolean {
-    console.log(this.isLoggedIn);
     return this.isLoggedIn;
   }
 
@@ -54,7 +52,7 @@ export class NavBarComponent implements OnInit {
     // this.cookieService.set("isLoggedIn", "false");
     // this.ngOnInit();
     this.cookieService.deleteAll();
-    this.router.navigate(['/login']);
+    // this.router.navigate(['/login']);
   }
 
 }

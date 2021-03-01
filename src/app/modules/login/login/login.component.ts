@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   password: string;
   username: string;
-  message: string = "";
+  showErrorMessage: boolean = false;
 
   constructor(private loginService: LoginService, private router: Router, private cookieService : CookieService) { }
 
@@ -33,13 +33,14 @@ export class LoginComponent implements OnInit {
     this.password = event.target.password.value;
 
     this.loginService.verifyCredentials(this.username, this.password).subscribe(
-      (id: number) => {
-          this.cookieService.set("id", <string><unknown>id);
+      (userInfo: number[]) => {
+          this.cookieService.set("id", <string><unknown>userInfo[0]);
+          this.cookieService.set("role", <string><unknown>userInfo[1]);
           this.cookieService.set("isLoggedIn", "true");
           this.router.navigate(['/home']);
       },
       (error) => {
-        this.message = "Invalid Username or Password";
+        this.showErrorMessage = true;
       });
 
   }

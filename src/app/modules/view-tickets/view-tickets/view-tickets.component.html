@@ -1,0 +1,72 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<h1 class="d-flex justify-content-center">Your Reimbursement Tickets</h1>
+
+<div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ticket {{this.modalId}} Description</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+        </div>
+        <div class="modal-body">
+        {{this.modalDesc}}
+        </div>
+    </div>
+    </div>
+</div>
+
+
+<div class="jumbotron">
+    <table class="table ">
+    <thead class="thead-dark">
+      <tr>
+        <th>Ticket Id</th>
+        <th>Amount</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Submitted</th>
+        <th>Resolved</th>
+        <th>Resolver Id</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ticket of ticketList; let i = index">
+        <th scope="row">{{ticket.reimbId}}</th>
+        <td>{{ticket.amount | currency}}</td>
+        <td>{{ticket.type.type}}</td>
+        <td>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="setModalText(ticket)">
+                View Description
+            </button>
+        </td>
+        <td>{{ticket.submitted | date : 'MMMM dd, YYYY - hh:mm:ss zzz'}}</td>
+        <td *ngIf="ticket.resolved != null">{{ticket.resolved | date : 'MMMM dd, YYYY - hh:mm:ss zzz'}}</td>
+        <td *ngIf="ticket.resolved == null">n/a</td>
+        <td *ngIf="ticket.resolver != null">{{ticket.resolver.userId}}</td>
+        <td *ngIf="ticket.resolver == null">n/a</td>
+        <td *ngIf="ticket.status.statusId == 1">
+            <p class="text-warning">
+            {{ticket.status.status | titlecase}}
+            </p>
+        </td>
+        <td *ngIf="ticket.status.statusId == 2">
+            <p class="text-success">
+            {{ticket.status.status | titlecase}}
+            </p>
+        </td>
+        <td *ngIf="ticket.status.statusId == 3">
+            <p class="text-danger">
+                {{ticket.status.status | titlecase}}
+            </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

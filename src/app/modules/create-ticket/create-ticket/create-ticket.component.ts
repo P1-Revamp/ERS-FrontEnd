@@ -21,8 +21,10 @@ export class CreateTicketComponent implements OnInit {
   amount: number;
   type: number;
   description: string;
-  message: string = "";
-  messageError: string = "";
+  // message: string = "";
+  // messageError: string = "";
+  showSuccessMessage: boolean = false;
+  showErrorMessage: boolean = false;
 
   @ViewChild('amountEntered') amountInput;
   @ViewChild('descriptionEntered') descriptionInput;
@@ -50,10 +52,16 @@ export class CreateTicketComponent implements OnInit {
       (response) => {
 
         if (response) {
-           this.message = "Ticket Successfully Created";
+          console.log("true")
+           this.showSuccessMessage = true;
         } else {
-           this.messageError = "Error. Ticket Not Created";
-        }});
+          console.log("false");
+           this.showErrorMessage = true;
+        }
+      },
+        (error) => {
+          this.showErrorMessage = true;
+        });
 
     // console.log(this.amount);
     // console.log(this.type);

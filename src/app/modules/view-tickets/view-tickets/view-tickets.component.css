@@ -1,0 +1,7 @@
+.jumbotron {
+    background-color: white;
+}
+
+tr:hover {
+    background-color: lightcyan;
+}

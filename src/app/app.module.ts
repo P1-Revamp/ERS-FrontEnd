@@ -9,13 +9,19 @@ import { LoginComponent } from './modules/login/login/login.component';
 import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { CreateTicketComponent } from './modules/create-ticket/create-ticket/create-ticket.component';
+import { ViewTicketsComponent } from './modules/view-tickets/view-tickets/view-tickets.component';
+import { ReviewTicketsComponent } from './modules/review-tickets/review-tickets/review-tickets.component';
+import { SettingsComponent } from './modules/home/settings/settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     LoginComponent,
-    CreateTicketComponent
+    CreateTicketComponent,
+    ViewTicketsComponent,
+    ReviewTicketsComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

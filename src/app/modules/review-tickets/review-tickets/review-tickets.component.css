@@ -1,0 +1,11 @@
+.jumbotron {
+    background-color: white;
+}
+
+tbody:hover {
+    background-color: lightcyan;
+}
+
+table {
+    margin-top: 15px;
+}

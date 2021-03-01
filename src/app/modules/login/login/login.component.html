@@ -9,6 +9,7 @@
 
     <div class="d-flex justify-content-center">
     <div class="jumbotron">
+        
         <form (ngSubmit)="login($event)" [formGroup]="loginForm"> 
             <div class="form-group">
                 <label for="formGroupExampleInput">Username</label>
@@ -22,5 +23,10 @@
         </form>
     </div>
 </div>
-<p class="d-flex justify-content-center text-danger" >{{message}}</p>
+<div class="d-flex justify-content-center">
+    <div class="alert alert-danger" role="alert" *ngIf="showErrorMessage">
+        <strong>Error</strong> Invalid Username or Password
+    </div>
+</div>
+<!-- <p class="d-flex justify-content-center text-danger" >{{message}}</p> -->
 

@@ -15,33 +15,38 @@ import { HomeService } from '../HomeService/home.service';
 })
 export class HomePageComponent implements OnInit {
 
-  user: User = new User(0, "", "", "", "", "", new Roles(0, ""));
+  // user: User = new User(0, "", "", "", "", "", new Roles(0, ""));
+  user: User;
 
   constructor(public loginService: LoginService, private cookieService : CookieService, private homeService: HomeService, private navBarComponent: NavBarComponent, private navBarService: NavBarService) { }
   
-
   ngOnInit(): void {
     this.navBarService.isLoggedIn();
-    if (<number><unknown>this.cookieService.get("id") == 1) this.navBarService.isFinancialManager();
-    this.getUserInfo(<number><unknown>this.cookieService.get("id"));
+    if (<number><unknown>this.cookieService.get("role") == 1) this.navBarService.isFinancialManager();
+    this.homeService.getUser(<number><unknown>this.cookieService.get("id")).subscribe(
+      (user: User) => {
+        this.user = user;
+      });
+    
+  
   }
 
   // @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
   //   this.loginService.verifyCredentials();
   // }
 
-  async getUserInfo(id: number) {
+  // async getUserInfo(id: number) {
 
-    this.homeService.getUser(id).subscribe(
-      (user: User) => {
-        this.user = user;
-        // if (user.role.roleId === 1) {
-        //   this.navBarComponent.setIsFinancialManager(true);
-        // }
+  //   this.homeService.getUser(id).subscribe(
+  //     (user: User) => {
+  //       this.user = user;
+  //       // if (user.role.roleId === 1) {
+  //       //   this.navBarComponent.setIsFinancialManager(true);
+  //       // }
         
-      }
-    )
+  //     }
+  //   )
 
-  }
+  // }
 
 }

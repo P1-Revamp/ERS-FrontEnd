@@ -1,0 +1,11 @@
+input {
+    margin-bottom: 15px;
+}
+
+#input-error {
+    color: red;
+}
+
+.jumbotron {
+    min-width: 600px;
+}
