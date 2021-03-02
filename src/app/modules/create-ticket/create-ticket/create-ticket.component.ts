@@ -33,7 +33,7 @@ export class CreateTicketComponent implements OnInit {
 
   ngOnInit(): void {
     this.navBarService.isLoggedIn();
-    if (<number><unknown>this.cookieService.get("id") == 1) this.navBarService.isFinancialManager();
+    if (<number><unknown>this.cookieService.get("role") == 1) this.navBarService.isFinancialManager();
     this.ticketForm = new FormGroup({
       amount: new FormControl('', { validators: [Validators.required] }),
       type: new FormControl('', { validators: [Validators.required] }),

@@ -16,4 +16,17 @@ export class HomeService {
     return this.http.get(`${environment.URL}/user/` + id) as Observable<User>;
   }
 
+  checkIfUsernameExists(user: User): Observable<boolean> {
+    return this.http.post(`${environment.URL}/user/username`, user) as Observable<boolean>;
+  }
+  updateUsername(user: User): Observable<boolean> {
+    return this.http.patch(`${environment.URL}/user/username`, user) as Observable<boolean>;
+  }
+  updateEmail(user: User): Observable<boolean> {
+    return this.http.patch(`${environment.URL}/user/email`, user) as Observable<boolean>;
+  }
+  updatePassword(user: User): Observable<boolean> {
+    return this.http.patch(`${environment.URL}/user/password`, user) as Observable<boolean>;
+  }
+
 }
