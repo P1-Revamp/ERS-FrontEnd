@@ -15,17 +15,17 @@ import { HomeService } from '../HomeService/home.service';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-  showUsernameInvalidMessage: boolean = false;
-  showUsernameTakenMessage: boolean = false;
-  showEmailInvalidMessage: boolean = false;
-  showCurrentPasswordIncorrectMessage: boolean = false;
-  showNewPasswordInvalidMessage: boolean = false;
-  showPasswordsDoNotMatchMessage: boolean = false;
-  showErrorMessage: boolean = false;
 
+  showUsernameErrorMessage: boolean = false;
   showUsernameSuccessMessage: boolean = false;
+  showEmailErrorMessage: boolean = false;
   showEmailSuccessMessage: boolean = false;
+  showPasswordErrorMessage: boolean = false;
   showPasswordSuccessMessage: boolean = false;
+
+  usernameErrorMessage: string = "";
+  emailErrorMessage: string = "";
+  passwordErrorMessage: string = "";
 
   settingsForm: FormGroup;
   newUsername: string;
@@ -72,7 +72,7 @@ export class SettingsComponent implements OnInit {
     if (event.target.reenterNewPassword != null) this.reenterNewPassword = event.target.reenterNewPassword.value;
 
     this.homeService.getUser(<number><unknown>this.cookieService.get("id")).subscribe(
-      (response: User) => {
+      (response: any) => {
         let userInfo = response;
 
       this.updateUsername(userInfo);
@@ -89,8 +89,10 @@ export class SettingsComponent implements OnInit {
 
   updateUsername(userInfo: User): void {
     if (this.newUsername != "" && this.newUsername != undefined) {
-      if (!this.usernameValidator(this.newUsername)) {
-        this.showUsernameInvalidMessage = true;
+      if (!this.usernameValidator(this.newUsername)) { //username is invalid
+        this.showUsernameErrorMessage = true;
+        this.usernameErrorMessage = "Username Invalid";
+        this.showUsernameSuccessMessage = false;
         this.usernameId = "input-error";
       } else {
         userInfo.username = this.newUsername;
@@ -98,28 +100,32 @@ export class SettingsComponent implements OnInit {
         this.homeService.checkIfUsernameExists(userInfo).subscribe(
           (response: boolean) => {
             if (response) { //true means the name is taken
-              this.showUsernameTakenMessage = true;
-              this.showUsernameInvalidMessage = false;
+
+              this.showUsernameErrorMessage = true;
+              this.usernameErrorMessage = "Username Already Taken";
               this.showUsernameSuccessMessage = false;
               this.usernameId = "input-error";
             } else {
               this.homeService.updateUsername(userInfo).subscribe(
                 (resposne: boolean) => {
-                  if (resposne) {
+                  if (resposne) { //username updated
                     this.showUsernameSuccessMessage = true;
-                    this.showUsernameInvalidMessage = false;
-                    this.showUsernameTakenMessage = false;
+                    this.showUsernameErrorMessage = false;
                     this.usernameId = "";
-                  } else {
-                    this.showUsernameInvalidMessage = false;
+                    this.cookieService.set("username", this.newUsername);
+                  } else { //error
+                    this.showUsernameErrorMessage = true;
+                    this.usernameErrorMessage = "Internal Issue";
                     this.showUsernameSuccessMessage = false;
-                    this.showUsernameTakenMessage = false;
-                    this.showErrorMessage = true;
                   }
                 });
             }
-          }
-        )
+          }, (error: any) => { //error
+            this.showUsernameErrorMessage = true;
+            this.usernameErrorMessage = "Internal Issue";
+            this.showUsernameSuccessMessage = false;
+              console.log(error);
+          });
       }
   } else {
     this.showUsernameSuccessMessage = false;
@@ -129,8 +135,9 @@ export class SettingsComponent implements OnInit {
   updateEmail(userInfo: User): void {
     if (this.newEmail != "" && this.newEmail != undefined) {
 
-      if (!this.emailValidator(this.newEmail)) {
-        this.showEmailInvalidMessage = true;
+      if (!this.emailValidator(this.newEmail)) { //invalid email
+        this.showEmailErrorMessage = true;
+        this.emailErrorMessage = "Invalid Email";
         this.showEmailSuccessMessage = false;
         this.emailId = "input-error";
       } else {
@@ -138,15 +145,20 @@ export class SettingsComponent implements OnInit {
 
         this.homeService.updateEmail(userInfo).subscribe(
           (response: boolean) => {
-            if (response) {
+            if (response) { //updated email
               this.showEmailSuccessMessage = true;
-              this.showEmailInvalidMessage = false;
+              this.showEmailErrorMessage = false;
               this.emailId =  "";
-            } else {
-              this.showEmailInvalidMessage = false;
+            } else { //error
+              this.showEmailErrorMessage = false;
+              this.emailErrorMessage = "Internal Issue";
               this.showEmailSuccessMessage = false;
-              this.showErrorMessage = true;
             }
+          }, (error: any) => { //error
+            this.showEmailErrorMessage = false;
+            this.emailErrorMessage = "Internal Issue";
+            this.showEmailSuccessMessage = false;
+            console.log(error);
           });
       }
     } else {
@@ -156,42 +168,41 @@ export class SettingsComponent implements OnInit {
 
   updatePassword(userInfo: User): void {
     if (this.currentPassword != "" && this.currentPassword != undefined) {
-      if (this.currentPassword != userInfo.password) {
-        //incorrent password
-        this.showCurrentPasswordIncorrectMessage = true;
-        this.showNewPasswordInvalidMessage = false;
-        this.showPasswordsDoNotMatchMessage = false;
+      if (this.currentPassword != userInfo.password) { //incorrent password
+        this.showPasswordErrorMessage = true;
+        this.passwordErrorMessage = "Incorrect Password";
         this.showPasswordSuccessMessage = false;
         this.passwordId = "input-error"
-      } else if (this.newPassword == "" || !this.passwordValidator(this.newPassword)) {
-        //invalid new password
-        this.showNewPasswordInvalidMessage = true;
-        this.showPasswordsDoNotMatchMessage = false;
-        this.showCurrentPasswordIncorrectMessage = false;
-        this.showPasswordSuccessMessage = false;
+      } else if (this.newPassword == "" || !this.passwordValidator(this.newPassword)) { //invalid new password
+        this.showPasswordErrorMessage = true;
+        this.passwordErrorMessage = "Invalid New Password";
+        this.showPasswordErrorMessage = false;
         this.passwordId = "input-error"
-      } else if (this.newPassword != this.reenterNewPassword) {
-        //passwords don't match
-        this.showPasswordsDoNotMatchMessage = true;
-        this.showNewPasswordInvalidMessage = false;
-        this.showCurrentPasswordIncorrectMessage = false;
-        this.showPasswordSuccessMessage = false;
+      } else if (this.newPassword != this.reenterNewPassword) { //passwords don't match
+        this.showPasswordErrorMessage = true;
+        this.passwordErrorMessage = "Passwords Do Not Match";
+        this.showPasswordSuccessMessage = true;
         this.passwordId = "input-error";
       } else {
         userInfo.password = this.newPassword;
         this.homeService.updatePassword(userInfo).subscribe(
           (response: boolean) => {
-            if (response) {
+            if (response) { //updated password
               this.showPasswordSuccessMessage = true;
-              this.showPasswordsDoNotMatchMessage = false;
-              this.showNewPasswordInvalidMessage = false;
-              this.showCurrentPasswordIncorrectMessage = false;
+              this.showPasswordErrorMessage = false;
               this.passwordId = "";
-            } else {
-              this.showErrorMessage = true;
+              this.cookieService.set("password", this.newPassword);
+            } else { //error
+              this.showPasswordErrorMessage = true;
+              this.passwordErrorMessage = "Internal Issue";
+              this.showPasswordSuccessMessage = false;
             }
-          }
-        )
+          }, (error: any) => { //error
+            this.showPasswordErrorMessage = true;
+            this.passwordErrorMessage = "Internal Issue";
+            this.showPasswordSuccessMessage = false;
+            console.log(error);
+          });
       }
     } else {
       this.showPasswordSuccessMessage = false;

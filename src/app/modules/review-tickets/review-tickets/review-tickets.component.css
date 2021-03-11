@@ -1,11 +1,29 @@
 .jumbotron {
+    /* background-color: #6B7A8F; */
+    background: rgba(16, 119, 224, 0.0);
+}
+
+tbody {
     background-color: white;
 }
 
 tbody:hover {
-    background-color: lightcyan;
+    background-color: #f8f8ff;
 }
 
 table {
     margin-top: 15px;
+
+    border-style: solid;
+    border-width: 5px;
+    border-color: #343A40;
+}
+
+.btn-secondary {
+    background-color: #343A40;
+    /* border-color: #F7C331; */
+}
+
+.btn-secondary:active {
+    background-color: purple;
 }

@@ -2,65 +2,57 @@
 <br>
 <br>
 <br>
-<h1 class="d-flex justify-content-center">Welcome</h1>
 <br>
+
+<h1 class="d-flex justify-content-center font-weight-bolder">Welcome</h1>
 
 <div class="d-flex justify-content-center">
     <div class="jumbotron">
-        <div class="list-group">
+        <div class="list-group shadow">
             <a id="list-header" class="list-group-item list-group-item-action flex-column align-items-start active">
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">Name</h5>
-                <!-- <small>3 days ago</small> -->
               </div>
               <p class="mb-1">{{this.user.firstName}} {{this.user.lastName}}</p>
-              <!-- <small>Donec id elit non mi porta.</small> -->
             </a>
             <a id="list-item" class="list-group-item list-group-item-action flex-column align-items-start">
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">Job Title</h5>
-                <!-- <small class="text-muted">3 days ago</small> -->
               </div>
               <p class="mb-1">{{this.user.role.role}}</p>
-              <!-- <small class="text-muted">Donec id elit non mi porta.</small> -->
             </a>
             <a id="list-item" class="list-group-item list-group-item-action flex-column align-items-start">
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">Employee Id</h5>
-                <!-- <small class="text-muted">3 days ago</small> -->
               </div>
               <p class="mb-1">{{this.user.userId}}</p>
-              <!-- <small class="text-muted">Donec id elit non mi porta.</small> -->
             </a>
             <a id="list-item" class="list-group-item list-group-item-action flex-column align-items-start">
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">Username</h5>
-                <!-- <small class="text-muted" href="#!">update</small> -->
               </div>
               <p class="mb-1">{{this.user.username}}</p>
-              <!-- <small class="text-muted">Donec id elit non mi porta.</small> -->
             </a>
             <a id="list-item" class="list-group-item list-group-item-action flex-column align-items-start">
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">Email</h5>
-                <!-- <small class="text-muted" href="#!">update</small> -->
               </div>
               <p class="mb-1">{{this.user.email}}</p>
-              <!-- <small class="text-muted">Donec id elit non mi porta.</small> -->
             </a>
-            <!-- <a id="settings" style="background-color: rgb(200, 231, 231);" href="#!" class="list-group-item flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">User Settings</h5>
-               
-              </div>
-              <p class="mb-1">Click to update user information, such as username, password, or email address.</p>
-             
-            </a> -->
           </div>
     </div>
-    
 </div>
-
-
+<div class="d-flex justify-content-center">
+  <div class="alert alert-danger" role="alert" *ngIf="showErrorMessage">
+      <strong>Error</strong> Failed to Load User Information
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
   

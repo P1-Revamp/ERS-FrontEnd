@@ -12,11 +12,14 @@ import { CreateTicketComponent } from './modules/create-ticket/create-ticket/cre
 import { ViewTicketsComponent } from './modules/view-tickets/view-tickets/view-tickets.component';
 import { ReviewTicketsComponent } from './modules/review-tickets/review-tickets/review-tickets.component';
 import { SettingsComponent } from './modules/home/settings/settings.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HomePageComponent } from './modules/home/home-page/home-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
+    HomePageComponent,
     LoginComponent,
     CreateTicketComponent,
     ViewTicketsComponent,
@@ -29,6 +32,7 @@ import { SettingsComponent } from './modules/home/settings/settings.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FontAwesomeModule,
   ],
   providers: [HttpClient, CookieService, NavBarComponent],
   bootstrap: [AppComponent]

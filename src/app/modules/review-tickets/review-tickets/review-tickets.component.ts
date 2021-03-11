@@ -26,7 +26,8 @@ export class ReviewTicketsComponent implements OnInit {
 
   statusId: number;
 
-  showSuccessMessage: boolean = false;
+  showTicketSuccessMessage: boolean = false;
+  showTicketErrorMessage: boolean = false;
   showErrorMessage: boolean = false;
 
   constructor(private reviewTicketService: ReviewTicketsService, private cookieService : CookieService, private navBarService: NavBarService, private router: Router) { }
@@ -38,7 +39,11 @@ export class ReviewTicketsComponent implements OnInit {
     this.reviewTicketService.getTicketsExceptById(<number><unknown>this.cookieService.get("id")).subscribe(
       (response: Reimbursement[]) => {
         this.ticketList = response;
+      }, (error: any) => {
+        this.showErrorMessage = true;
+        console.log(error);
       });
+
     this.reviewForm = new FormGroup({
       statusId: new FormControl('', { validators: [Validators.required] }),
     })
@@ -60,10 +65,19 @@ export class ReviewTicketsComponent implements OnInit {
     this.reviewTicketService.sendTicketReview(ticket).subscribe(
       (response: boolean) => {
         if (response) {
-          this.showSuccessMessage = true;
+          this.showTicketSuccessMessage = true;
+          this.showTicketErrorMessage = false;
+          this.showErrorMessage = false;
         } else {
-          this.showErrorMessage = true;
+          this.showTicketErrorMessage = true;
+          this.showErrorMessage = false;
+          this.showTicketSuccessMessage = false;
         }
+      }, (error: any) => {
+        this.showErrorMessage = true;
+        this.showTicketErrorMessage = false;
+        this.showTicketSuccessMessage = false;
+        console.log(error);
       });
   }
 

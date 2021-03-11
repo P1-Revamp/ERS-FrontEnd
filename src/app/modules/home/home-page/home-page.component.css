@@ -2,12 +2,35 @@
     background-color: white;
 }
 #list-header:hover {
-    background-color: #007BFF;
+    background-color: #343A40;
 }
+#list-header {
+    border-color: #343A40;
+}
+
 #settings:hover {
     background-color: aquamarine;
 }
 
 div.list-group {
     min-width: 300px;
+}
+
+.jumbotron {
+    /* border-style: solid;
+    border-width: 3px;
+    border-color: #F7C331; */
+
+    /* background-color: #6B7A8F; */
+    background: rgba(16, 119, 224, 0.0);
+}
+
+.list-group {
+
+    /* padding: 5px; */
+    
+
+    border-style: solid;
+    border-width: 5px;
+    border-color: #343A40;
 }

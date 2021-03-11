@@ -1,5 +1,6 @@
 import { Component, OnInit, ɵɵtrustConstantResourceUrl } from '@angular/core';
 import { Router } from '@angular/router';
+import { faBars, faCog, faEdit, faHome, faSignOutAlt, faStamp, faTicketAlt } from '@fortawesome/free-solid-svg-icons';
 import { CookieService } from 'ngx-cookie-service';
 import { NavBarService } from '../NavService/nav-bar.service';
 // import { isFinancialManager$, isLoggedIn$ } from 'src/environments/environment';
@@ -10,6 +11,13 @@ import { NavBarService } from '../NavService/nav-bar.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
+  faCog = faCog;
+  faBars = faBars;
+  faHome = faHome;
+  faTicketAlt = faTicketAlt;
+  faEdit = faEdit;
+  faStamp = faStamp;
+  faSignOutAlt = faSignOutAlt;
 
   isFinancialManager: boolean = false;
   isLoggedIn: boolean = false;
@@ -18,22 +26,7 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // console.log("cookie: " + <boolean><unknown>this.cookieService.get("isLoggedIn"));
-
     this.isLoggedIn = <boolean><unknown>this.cookieService.get("isLoggedIn");
-
-    // console.log("isLoggedIn: " + this.isLoggedIn);
-
-      // isLoggedIn$.subscribe(
-      //   (isLoggedIn: boolean) => {
-      //     this.isLoggedIn = isLoggedIn;
-      //   });
-
-      //   isFinancialManager$.subscribe(
-      //     (isFinancialManager: boolean) => {
-      //       this.isFinancialManager = isFinancialManager;
-      //     });
-
   }
 
   setIsFinancialManager(isFinancialManager: boolean) {
@@ -49,10 +42,8 @@ export class NavBarComponent implements OnInit {
   }
 
   logout() {
-    // this.cookieService.set("isLoggedIn", "false");
-    // this.ngOnInit();
     this.cookieService.deleteAll();
-    // this.router.navigate(['/login']);
+    // this.navBarService.logout();
   }
 
 }

@@ -1,28 +1,27 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">
-  
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark shadow">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
             <div class="dropdown" *ngIf="navBarService.showMenu">
-                <button class="btn btn-secondary dropdown-toggle"
+                <button class="btn btn-secondary"
                         type="button" id="dropdownMenu1" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                  Menu
+                <fa-icon [icon]="faBars"></fa-icon>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  <a class="dropdown-item" href="home">Home</a>
-                  <a class="dropdown-item" href="my-tickets">My Tickets</a>
-                  <a class="dropdown-item" href="create-ticket">Create Ticket</a>
-                  <a *ngIf="navBarService.showReviewTab" class="dropdown-item" href="review-tickets">Review Tickets</a>
-                  <a class="dropdown-item" href="settings">Settings</a>
-                  <a class="dropdown-item" href="login" (click)="logout()">Log Out</a>
+                  <a class="dropdown-item" href="home"><fa-icon [icon]="faHome"></fa-icon> Home</a>
+                  <a class="dropdown-item" href="my-tickets"><fa-icon [icon]="faTicketAlt"></fa-icon> My Tickets</a>
+                  <a class="dropdown-item" href="create-ticket"><fa-icon [icon]="faEdit"></fa-icon> Create Ticket</a>
+                  <a *ngIf="navBarService.showReviewTab" class="dropdown-item" href="review-tickets"><fa-icon [icon]="faStamp"></fa-icon> Review Tickets</a>
+                  <a class="dropdown-item" href="settings"><fa-icon [icon]="faCog"></fa-icon> Settings</a>
+                  <a class="dropdown-item" href="login" (click)="logout()"><fa-icon [icon]="faSignOutAlt"></fa-icon> Log Out</a>
                 </div>
               </div>
         </li>  
         <li class="nav-item">
-            <a class="navbar-brand nav-link text-white" href="home">Expense Reimbursement System</a>
+            <h2 class="navbar-brand nav-link text-dark" >Expense Reimbursement System</h2>
         </li>
       </ul>
-    </div>
-  </nav>
+  </div>
+</nav>
   

@@ -2,6 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit, Type, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { CookieService } from 'ngx-cookie-service';
 import { NewReimbursement } from 'src/app/models/new-reimbursement.model';
 import { Roles } from 'src/app/models/roles.model';
@@ -17,6 +18,8 @@ import { CreateTicketService } from '../CreateTicketService/create-ticket.servic
   styleUrls: ['./create-ticket.component.css']
 })
 export class CreateTicketComponent implements OnInit {
+  faEdit = faEdit;
+
   ticketForm: FormGroup;
   amount: number;
   type: number;
@@ -25,6 +28,8 @@ export class CreateTicketComponent implements OnInit {
   // messageError: string = "";
   showSuccessMessage: boolean = false;
   showErrorMessage: boolean = false;
+  showAmountErrorMessage: boolean = false;
+  showOtherErrorMessage: boolean = false;
 
   @ViewChild('amountEntered') amountInput;
   @ViewChild('descriptionEntered') descriptionInput;
@@ -46,30 +51,56 @@ export class CreateTicketComponent implements OnInit {
     this.type = event.target.type.value;
     this.description = event.target.description.value;
 
-    let newTicket: NewReimbursement = new NewReimbursement(<number>this.amount, this.description, new User(<number><unknown>this.cookieService.get("id"), "", "", "", "", "", new Roles(0, "")), new Status(1, "pending"), new Types(this.type, ""));
+    // console.log(event.target.amount);
+    // console.log(event.target.amount.value);
+    // console.log(typeof this.amount);
 
-    this.createTicketService.createTicket(newTicket).subscribe(
-      (response) => {
+    // if (typeof this.amount == typeof 1) console.log("Is a number");
+    // if (typeof this.amount == typeof "string") console.log("Is a String");
+    // if (typeof this.amount == typeof Number) console.log("Is a number");
 
-        if (response) {
-          console.log("true")
-           this.showSuccessMessage = true;
-        } else {
-          console.log("false");
-           this.showErrorMessage = true;
-        }
-      },
-        (error) => {
-          this.showErrorMessage = true;
-        });
+    if (<string><unknown>this.amount == "") {
+      this.showAmountErrorMessage = true;
+      this.showErrorMessage = false;
+      this.showSuccessMessage = false;
+      this.showOtherErrorMessage = false;
+    } else if (this.type == 4 && this.description == "") {
+      this.showOtherErrorMessage = true;
+    } else {
+      let newTicket: NewReimbursement = new NewReimbursement(<number>this.amount, this.description, new User(<number><unknown>this.cookieService.get("id"), "", "", "", "", "", new Roles(0, "")), new Status(1, "pending"), new Types(this.type, ""));
 
-    // console.log(this.amount);
-    // console.log(this.type);
-    // console.log(this.description);
+      this.createTicketService.createTicket(newTicket).subscribe(
+        (response: boolean) => {
 
-    this.amountInput.nativeElement.value = "";
-    this.descriptionInput.nativeElement.value = "";
+          if (response) {
+            this.showSuccessMessage = true;
+            this.showErrorMessage = false;
+            this.showAmountErrorMessage = false;
+            this.showOtherErrorMessage = false;
+          } else {
+            this.showErrorMessage = true;
+            this.showSuccessMessage = false;
+            this.showAmountErrorMessage = false;
+            this.showOtherErrorMessage = false;
+          }
+        }, (error: any) => {
+            this.showErrorMessage = true;
+            this.showSuccessMessage = false;
+            this.showAmountErrorMessage = false;
+            this.showOtherErrorMessage = false;
+            console.log(error);
+          });
 
-    // this.message = "Ticket Successfully Created";
+      // console.log(this.amount);
+      // console.log(this.type);
+      // console.log(this.description);
+
+      this.amountInput.nativeElement.value = "";
+      this.descriptionInput.nativeElement.value = "";
+
+      // this.message = "Ticket Successfully Created";
+    }
+
+   
   }
 }

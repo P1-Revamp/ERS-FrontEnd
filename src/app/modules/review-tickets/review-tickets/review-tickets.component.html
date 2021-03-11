@@ -3,7 +3,7 @@
 <br>
 <br>
 <br>
-<h1 class="d-flex justify-content-center">Review Tickets</h1>
+<h1 class="d-flex justify-content-center font-weight-bolder">Review Tickets</h1>
 
 <div class="modal fade" id="descriptionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -63,15 +63,18 @@
 
 <div class="jumbotron">
 
-  <div class="alert alert-success" role="alert" *ngIf="showSuccessMessage">
+  <div class="alert alert-success" role="alert" *ngIf="showTicketSuccessMessage">
     <strong>Success!</strong> Ticket Has Been Reviewed
   </div>
-  <div class="alert alert-danger" role="alert" *ngIf="showErrorMessage">
+  <div class="alert alert-danger" role="alert" *ngIf="showTicketErrorMessage">
     <strong>Error</strong> Ticket Not Reviewed
+  </div>
+  <div class="alert alert-danger" role="alert" *ngIf="showErrorMessage">
+    <strong>Error</strong> Internal Issue
   </div>
   
 
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <div class="btn-group btn-group-toggle shadow" data-toggle="buttons">
         <label class="btn btn-secondary active">
           <input type="radio" name="options" id="option1" autocomplete="off" checked="" (click)="setFilter(0)"> All
         </label>
@@ -86,7 +89,7 @@
         </label>
       </div>
 
-    <table class="table">
+    <table class="table shadow">
     <thead class="thead-dark">
       <tr>
         <th>Ticket Id</th>
@@ -138,3 +141,7 @@
     </tbody>
   </table>
 </div>
+
+<br>
+<br>
+<br>

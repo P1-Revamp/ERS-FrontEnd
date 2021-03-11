@@ -5,3 +5,9 @@
 #type-label {
     margin-top: 25px;
 }
+
+.jumbotron {
+    border-style: solid;
+    border-width: 3px;
+    border-color: #F7C331;
+}

@@ -3,7 +3,7 @@
 <br>
 <br>
 <br>
-<h1 class="d-flex justify-content-center">Your Reimbursement Tickets</h1>
+<h1 class="d-flex justify-content-center font-weight-bolder">Your Reimbursement Tickets</h1>
 
 <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -23,7 +23,59 @@
 
 
 <div class="jumbotron">
-    <table class="table ">
+
+  <div class="alert alert-danger" role="alert" *ngIf="showErrorMessage">
+    <strong>Error</strong> Internal Issue
+  </div>
+
+  <!-- <table class="table shadow">
+    <thead class="thead-dark">
+      <tr>
+        <th>Ticket Id</th>
+        <th>Amount</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Submitted</th>
+        <th>Resolved</th>
+        <th>Resolver Id</th>
+        <th>Status</th>
+      </tr>
+    </thead> -->
+    <!-- <tbody *ngIf="hide">
+      <tr *ngFor="let ticket of ticketList; let i = index">
+        <th scope="row">{{ticket[0].reimbId}}</th>
+        <td>{{ticket[0].amount | currency}}</td>
+        <td>{{ticket[0].type.type}}</td>
+        <td>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="setModalText(ticket)">
+                View Description
+            </button>
+        </td>
+        <td>{{ticket[0].submitted | date : 'MMMM dd, YYYY - hh:mm:ss zzz'}}</td>
+        <td *ngIf="ticket.resolved != null">{{ticket[0].resolved | date : 'MMMM dd, YYYY - hh:mm:ss zzz'}}</td>
+        <td *ngIf="ticket.resolved == null">n/a</td>
+        <td *ngIf="ticket.resolver != null">{{ticket[0].resolver.userId}}</td>
+        <td *ngIf="ticket.resolver == null">n/a</td>
+        <td *ngIf="ticket.status.statusId == 1">
+            <p class="text-warning">
+            {{ticket[0].status.status | titlecase}}
+            </p>
+        </td>
+        <td *ngIf="ticket.status.statusId == 2">
+            <p class="text-success">
+            {{ticket[0].status.status | titlecase}}
+            </p>
+        </td>
+        <td *ngIf="ticket.status.statusId == 3">
+            <p class="text-danger">
+                {{ticket[0].status.status | titlecase}}
+            </p>
+        </td>
+      </tr>
+    </tbody> -->
+  <!-- </table> -->
+  <div class="pre-scrollable" style="min-height: 500px;">
+    <table class="table shadow">
     <thead class="thead-dark">
       <tr>
         <th>Ticket Id</th>
@@ -36,7 +88,8 @@
         <th>Status</th>
       </tr>
     </thead>
-    <tbody>
+    
+      <!-- <tbody>
       <tr *ngFor="let ticket of ticketList; let i = index">
         <th scope="row">{{ticket.reimbId}}</th>
         <td>{{ticket.amount | currency}}</td>
@@ -67,6 +120,47 @@
             </p>
         </td>
       </tr>
+    </tbody> -->
+    <!-- <table> -->
+
+    <tbody>
+      <tr *ngFor="let ticket of ticketList; let i = index">
+        <th scope="row" title="Ticket Id">{{ticket.reimbId}}</th>
+        <td title="Amount">{{ticket.amount | currency}}</td>
+        <td title="Type">{{ticket.type.type}}</td>
+        <td>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="setModalText(ticket)">
+                View Description
+            </button>
+        </td>
+        <td title="Submitted">{{ticket.submitted | date : 'MMMM dd, YYYY - hh:mm:ss zzz'}}</td>
+        <td *ngIf="ticket.resolved != null" title="Resolved">{{ticket.resolved | date : 'MMMM dd, YYYY - hh:mm:ss zzz'}}</td>
+        <td *ngIf="ticket.resolved == null" title="Resolved">n/a</td>
+        <td *ngIf="ticket.resolver != null" title="Resolver Id">{{ticket.resolver.userId}}</td>
+        <td *ngIf="ticket.resolver == null" title="Resolver Id">n/a</td>
+        <td *ngIf="ticket.status.statusId == 1" title="Status">
+            <p class="text-warning">
+            {{ticket.status.status | titlecase}}
+            </p>
+        </td>
+        <td *ngIf="ticket.status.statusId == 2" title="Status">
+            <p class="text-success">
+            {{ticket.status.status | titlecase}}
+            </p>
+        </td>
+        <td *ngIf="ticket.status.statusId == 3" title="Status">
+            <p class="text-danger">
+                {{ticket.status.status | titlecase}}
+            </p>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>
+</div>
+
+<br>
+<!-- <br>
+<br>
+<br>
+<br> -->

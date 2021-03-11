@@ -6,6 +6,8 @@ import { LoginService } from '../LoginService/login.service';
 import { ticketArray$, environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { NavBarComponent } from '../../navigation/nav-bar/nav-bar.component';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +15,8 @@ import { NavBarComponent } from '../../navigation/nav-bar/nav-bar.component';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  faSignInAlt = faSignInAlt;
+
   loginForm: FormGroup;
   password: string;
   username: string;
@@ -32,16 +36,38 @@ export class LoginComponent implements OnInit {
     this.username = event.target.username.value;
     this.password = event.target.password.value;
 
+    // this.loginService.verifyCredentials(this.username, this.password).subscribe(
+    //   (userInfo: number[]) => {
+    //       this.cookieService.set("id", <string><unknown>userInfo[0]);
+    //       this.cookieService.set("role", <string><unknown>userInfo[1]);
+    //       this.cookieService.set("isLoggedIn", "true");
+    //       this.router.navigate(['/home']);
+    //   },
+    //   (error) => {
+    //     this.showErrorMessage = true;
+    //   });
+
     this.loginService.verifyCredentials(this.username, this.password).subscribe(
-      (userInfo: number[]) => {
-          this.cookieService.set("id", <string><unknown>userInfo[0]);
-          this.cookieService.set("role", <string><unknown>userInfo[1]);
+      (response: number[]) => {
+
+          // let userInfoJSON: JSON = JSON.parse(response);
+          // let userInfoObj: number[] = <number[]><unknown>userInfoJSON;
+
           this.cookieService.set("isLoggedIn", "true");
+
+          this.cookieService.set("username", this.username);
+          this.cookieService.set("password", this.password);
+
+          this.cookieService.set("id", <string><unknown>response[0]);
+          this.cookieService.set("role", <string><unknown>response[1]);
+
           this.router.navigate(['/home']);
-      },
-      (error) => {
+      }, (error: any) => {
         this.showErrorMessage = true;
-      });
+        console.log(error);
+      }
+    )
+
 
   }
 

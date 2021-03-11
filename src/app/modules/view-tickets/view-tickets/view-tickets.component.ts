@@ -10,9 +10,9 @@ import { ViewTicketsService } from '../ViewTicketsService/view-tickets.service';
   styleUrls: ['./view-tickets.component.css']
 })
 export class ViewTicketsComponent implements OnInit {
-
+  hide: boolean = false;
+  showErrorMessage: boolean = false;
   ticketList: Reimbursement[];
-  // errorMessage: string = "";
   modalDesc: string = "";
   modalId: number = 0;
 
@@ -25,9 +25,13 @@ export class ViewTicketsComponent implements OnInit {
       (response: Reimbursement[]) => {
         if (response !== null) {
           this.ticketList = response;
+          this.showErrorMessage = false;
         } else {
-          
+          this.showErrorMessage = true;
         }          
+      },(error: any) => {
+        this.showErrorMessage = true;
+        console.log(error);
       });
   }
 

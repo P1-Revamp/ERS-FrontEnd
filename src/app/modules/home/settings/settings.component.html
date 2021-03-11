@@ -2,29 +2,29 @@
 <br>
 <br>
 <br>
-<h1 class="d-flex justify-content-center">Settings</h1>
+<h1 class="d-flex justify-content-center font-weight-bolder">Settings</h1>
 <br>
 
 <div class="d-flex justify-content-center">
-<div class="jumbotron">
+<div class="jumbotron shadow p-3 mb-5 rounded">
 
 <form (ngSubmit)="updateProfile($event)" [formGroup]="settingsForm">
-    <div class="form-group row">
-      <label for="username" class="col-sm-2 col-form-label" [id]="usernameId">Update Username</label>
+    <div class="form-group" class="d-flex justify-content-center" id="username-div">
+      <h5 for="username" [id]="usernameId">Update Username</h5>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="newUsername" placeholder="New Username" value="" #newUsernameEntered>
       </div>
     </div>
 
-    <div class="form-group row">
-        <label for="email" class="col-sm-2 col-form-label" [id]="emailId">Update Email</label>
+    <div class="form-group" class="d-flex justify-content-center" id="email-div">
+        <h5 for="email" [id]="emailId">Update Email</h5>
         <div class="col-sm-10">
           <input type="email" class="form-control" id="newEmail" placeholder="New Email" value="" #newEmailEntered>
         </div>
       </div>
 
-      <div class="form-group row">
-        <label for="current-password" class="col-sm-2 col-form-label" id="passwordId">Update Password</label>
+      <div class="form-group" class="d-flex justify-content-center">
+        <h5 for="current-password" id="passwordId">Update Password</h5>
         <div class="col-sm-10">
           <input type="password" class="form-control" id="currentPassword" placeholder="Current Password" value="" #currentPasswordEntered>
           <input type="password" class="form-control" id="newPassword" placeholder="New Password" value="" #newPasswordEntered>
@@ -32,9 +32,9 @@
         </div>
       </div>
 
-    <div class="form-group row">
-      <div class="col-sm-10 offset-sm-2">
-        <button type="submit" class="btn btn-primary form-group">Update Profile</button>
+    <div class="form-group">
+      <div >
+        <button type="submit" class="btn btn-primary btn-block form-group">Update Profile</button>
       </div>
     </div>
 </form>
@@ -43,52 +43,46 @@
 </div>
 
 <div class="d-flex justify-content-center">
-  <div class="alert alert-danger" role="alert" *ngIf="showUsernameInvalidMessage">
-      <strong>Error</strong> Invalid Username
-  </div>
-</div>
-<div class="d-flex justify-content-center">
-  <div class="alert alert-danger" role="alert" *ngIf="showUsernameTakenMessage">
-      <strong>Error</strong> Username Already Taken
-  </div>
-</div>
-<div class="d-flex justify-content-center">
   <div class="alert alert-success" role="alert" *ngIf="showUsernameSuccessMessage">
-      <strong>Success</strong> Username Updated
+      <strong>Success</strong>  Username Updated
   </div>
 </div>
 <div class="d-flex justify-content-center">
-  <div class="alert alert-danger" role="alert" *ngIf="showEmailInvalidMessage">
-      <strong>Error</strong> Invalid Email
+  <div class="alert alert-danger" role="alert" *ngIf="showUsernameErrorMessage">
+      <strong>Error</strong> {{usernameErrorMessage}}
   </div>
 </div>
+
 <div class="d-flex justify-content-center">
   <div class="alert alert-success" role="alert" *ngIf="showEmailSuccessMessage">
-      <strong>Success</strong> Email Updated
+      <strong>Success</strong>  Email Updated
   </div>
 </div>
 <div class="d-flex justify-content-center">
-  <div class="alert alert-danger" role="alert" *ngIf="showCurrentPasswordIncorrectMessage">
-      <strong>Error</strong> Current Password Incorrect
+  <div class="alert alert-danger" role="alert" *ngIf="showEmailErrorMessage">
+      <strong>Error</strong> {{emailErrorMessage}}
   </div>
 </div>
-<div class="d-flex justify-content-center">
-  <div class="alert alert-danger" role="alert" *ngIf="showNewPasswordInvalidMessage">
-      <strong>Error</strong> Invalid New Password
-  </div>
-</div>
-<div class="d-flex justify-content-center">
-  <div class="alert alert-danger" role="alert" *ngIf="showPasswordsDoNotMatchMessage">
-      <strong>Error</strong> New Password Fields Don't Match
-  </div>
-</div>
+
 <div class="d-flex justify-content-center">
   <div class="alert alert-success" role="alert" *ngIf="showPasswordSuccessMessage">
-      <strong>Success</strong> Password Updated
+      <strong>Success</strong>  Password Updated
   </div>
 </div>
 <div class="d-flex justify-content-center">
-  <div class="alert alert-danger" role="alert" *ngIf="showErrorMessage">
-      <strong>Error</strong> Profile Not Updated
+  <div class="alert alert-danger" role="alert" *ngIf="showPasswordErrorMessage">
+      <strong>Error</strong> {{passwordErrorMessage}}
   </div>
 </div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
