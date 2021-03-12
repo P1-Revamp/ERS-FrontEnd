@@ -23,11 +23,10 @@ export class HomePageComponent implements OnInit {
   
   ngOnInit(): void {
     this.navBarService.isLoggedIn();
+
     if (<number><unknown>this.cookieService.get("role") == 1) this.navBarService.isFinancialManager();
     this.homeService.getUser(<number><unknown>this.cookieService.get("id")).subscribe(
       (response: User) => {
-        // let userJson: JSON  = JSON.parse(response);
-        // let userObj: User = <User><unknown>userJson;
         this.user = response;
         this.showErrorMessage = false;
       }, (error: any) => {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faBook, faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { CookieService } from 'ngx-cookie-service';
 import { Reimbursement } from 'src/app/models/reimbursement.model';
 import { NavBarService } from '../../navigation/NavService/nav-bar.service';
@@ -10,6 +11,9 @@ import { ViewTicketsService } from '../ViewTicketsService/view-tickets.service';
   styleUrls: ['./view-tickets.component.css']
 })
 export class ViewTicketsComponent implements OnInit {
+  faBook = faBook;
+  faBookOpen = faBookOpen;
+
   hide: boolean = false;
   showErrorMessage: boolean = false;
   ticketList: Reimbursement[];

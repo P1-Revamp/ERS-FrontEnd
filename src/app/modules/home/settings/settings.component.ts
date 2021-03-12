@@ -168,7 +168,7 @@ export class SettingsComponent implements OnInit {
 
   updatePassword(userInfo: User): void {
     if (this.currentPassword != "" && this.currentPassword != undefined) {
-      if (this.currentPassword != userInfo.password) { //incorrent password
+      if (this.currentPassword != this.cookieService.get("password")) { //incorrent password
         this.showPasswordErrorMessage = true;
         this.passwordErrorMessage = "Incorrect Password";
         this.showPasswordSuccessMessage = false;

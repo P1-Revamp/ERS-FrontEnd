@@ -42,6 +42,7 @@ export class NavBarComponent implements OnInit {
   }
 
   logout() {
+    console.log("in logout");
     this.cookieService.deleteAll();
     // this.navBarService.logout();
   }

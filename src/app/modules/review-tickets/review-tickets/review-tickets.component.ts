@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { faBook, faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { CookieService } from 'ngx-cookie-service';
 import { Reimbursement } from 'src/app/models/reimbursement.model';
 import { Roles } from 'src/app/models/roles.model';
@@ -15,6 +16,9 @@ import { ReviewTicketsService } from '../ReviewTicketsService/review-tickets.ser
   styleUrls: ['./review-tickets.component.css']
 })
 export class ReviewTicketsComponent implements OnInit {
+  faBook = faBook;
+  faBookOpen = faBookOpen;
+
   ticketList: Reimbursement[];
   filter: number;
 

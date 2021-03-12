@@ -50,9 +50,6 @@ export class LoginComponent implements OnInit {
     this.loginService.verifyCredentials(this.username, this.password).subscribe(
       (response: number[]) => {
 
-          // let userInfoJSON: JSON = JSON.parse(response);
-          // let userInfoObj: number[] = <number[]><unknown>userInfoJSON;
-
           this.cookieService.set("isLoggedIn", "true");
 
           this.cookieService.set("username", this.username);

@@ -11,21 +11,11 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-
-  // verifyCredentials(username: string, password: string): Observable<number[]> {
-
-  //   const headers = new HttpHeaders({Authorization: 'Basic ' + btoa(username + ":" + password)});
-
-  //   // let credentials: any = {username, password};
-  //   return this.http.get(`${environment.URL}user/login/`, {headers, responseType:'text' as 'json'}) as Observable<number[]>;
-  // }
-
   verifyCredentials(username: string, password: string): Observable<number[]> {
 
-    let credentials = {username, password};
-
     const headers = new HttpHeaders({Authorization: 'Basic ' + btoa(username + ":" + password)});
-    return this.http.post(`${environment.URL}user/login/`, credentials, {headers}) as Observable<number[]>;
+    return this.http.post(`${environment.URL}user/login/`, "login", {headers}) as Observable<number[]>;
   }
 
 }
+ 
